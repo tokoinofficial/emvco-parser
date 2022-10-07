@@ -47,6 +47,6 @@ func (emv *EMVCo) parseMerchant(objectsMap map[string]*objects.DataObject) error
 
 	}
 
-	emv.mc = merchants
+	emv.mAccounts = merchants
 	return nil
 }

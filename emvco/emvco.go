@@ -8,13 +8,17 @@ import (
 )
 
 type EMVCo struct {
-	pfi         *objects.PayloadFormatIndicator
-	poim        *objects.PointOfInitiationMethod
-	mc          []objects.MerchantAccount
-	mcc         *objects.MerchantCategoryCode
-	tnxCurrency *objects.TransactionCurrency
-	tnxAmount   *objects.TransactionAmount
-	tnxTip      *objects.TransactionTip
+	pfi                                *objects.PayloadFormatIndicator
+	poim                               *objects.PointOfInitiationMethod
+	mAccounts                          []objects.MerchantAccount
+	mCategoryCode                      *objects.MerchantCategoryCode
+	mCountryCode                       *objects.MerchantCountryCode
+	mName                              *objects.MerchantName
+	tnxCurrency                        *objects.TransactionCurrency
+	tnxAmount                          *objects.TransactionAmount
+	tnxTip                             *objects.TransactionTip
+	tnxValueOfConvenienceFeeFixed      *objects.TransactionValueOfConvenienceFeeFixed
+	tnxValueOfConvenienceFeePercentage *objects.TransactionValueOfConvenienceFeePercentage
 }
 
 func NewEMVCo() *EMVCo {
@@ -26,14 +30,24 @@ func (emv *EMVCo) ToString() string {
 		PayloadFormatIndicator: %v | PointOfInitiationMethod: %v
 		MerchantAccount: %v
 		MerchantCategoryCode: %v
+		MerchantCountryCode: %v
+		MerchantName: %v
 		TransactionCurrency: %v
 		TransactionAmount: %v
+		TransactionTip: %v
+		TransactionValueOfConvenienceFeeFixed: %v
+		TransactionValueOfConvenienceFeePercentage: %v
 	`,
 		emv.pfi, emv.poim,
-		emv.mc,
-		emv.mcc,
+		emv.mAccounts,
+		emv.mCategoryCode,
+		emv.mCountryCode,
+		emv.mName,
 		emv.tnxCurrency,
 		emv.tnxAmount,
+		emv.tnxTip,
+		emv.tnxValueOfConvenienceFeeFixed,
+		emv.tnxValueOfConvenienceFeePercentage,
 	)
 }
 
