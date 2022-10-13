@@ -14,11 +14,14 @@ type EMVCo struct {
 	mCategoryCode                      *objects.MerchantCategoryCode
 	mCountryCode                       *objects.MerchantCountryCode
 	mName                              *objects.MerchantName
+	mCity                              *objects.MerchantCity
+	mPostalCode                        *objects.MerchantPostalCode
 	tnxCurrency                        *objects.TransactionCurrency
 	tnxAmount                          *objects.TransactionAmount
 	tnxTip                             *objects.TransactionTip
 	tnxValueOfConvenienceFeeFixed      *objects.TransactionValueOfConvenienceFeeFixed
 	tnxValueOfConvenienceFeePercentage *objects.TransactionValueOfConvenienceFeePercentage
+	dataFieldTemplate                  *objects.AdditionalDataFieldTemplate
 }
 
 func NewEMVCo() *EMVCo {
@@ -32,22 +35,28 @@ func (emv *EMVCo) ToString() string {
 		MerchantCategoryCode: %v
 		MerchantCountryCode: %v
 		MerchantName: %v
+		MerchantCity: %v
+		MerchantPostalCode: %v
 		TransactionCurrency: %v
 		TransactionAmount: %v
 		TransactionTip: %v
 		TransactionValueOfConvenienceFeeFixed: %v
 		TransactionValueOfConvenienceFeePercentage: %v
+		AdditionalDataFieldTemplate: %v
 	`,
 		emv.pfi, emv.poim,
 		emv.mAccounts,
 		emv.mCategoryCode,
 		emv.mCountryCode,
 		emv.mName,
+		emv.mCity,
+		emv.mPostalCode,
 		emv.tnxCurrency,
 		emv.tnxAmount,
 		emv.tnxTip,
 		emv.tnxValueOfConvenienceFeeFixed,
 		emv.tnxValueOfConvenienceFeePercentage,
+		emv.dataFieldTemplate,
 	)
 }
 
@@ -74,6 +83,11 @@ func (emv *EMVCo) Parse(str string) error {
 	}
 
 	err = emv.parseTransaction(objectsMap)
+	if err != nil {
+		return err
+	}
+
+	err = emv.parseAdditionalDataFieldTemplate(objectsMap)
 	if err != nil {
 		return err
 	}

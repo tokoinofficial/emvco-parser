@@ -74,3 +74,11 @@ type AdditionalObjectMerchantTaxID struct {
 type AdditionalObjectMerchantChannel struct {
 	DataObject
 }
+
+type AdditionalObjectRFU struct {
+	DataObject
+}
+
+type AdditionalObjectPaymentSystemSpecificTemplate struct {
+	DataObject
+}
