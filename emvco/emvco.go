@@ -16,6 +16,7 @@ type EMVCo struct {
 	mName                              *objects.MerchantName
 	mCity                              *objects.MerchantCity
 	mPostalCode                        *objects.MerchantPostalCode
+	mAlternateLanguage                 *objects.MerchantAlternateLanguage
 	tnxCurrency                        *objects.TransactionCurrency
 	tnxAmount                          *objects.TransactionAmount
 	tnxTip                             *objects.TransactionTip
@@ -37,6 +38,7 @@ func (emv *EMVCo) ToString() string {
 		MerchantName: %v
 		MerchantCity: %v
 		MerchantPostalCode: %v
+		MerchantAlternateLanguage: %v
 		TransactionCurrency: %v
 		TransactionAmount: %v
 		TransactionTip: %v
@@ -51,6 +53,7 @@ func (emv *EMVCo) ToString() string {
 		emv.mName,
 		emv.mCity,
 		emv.mPostalCode,
+		emv.mAlternateLanguage,
 		emv.tnxCurrency,
 		emv.tnxAmount,
 		emv.tnxTip,
@@ -88,6 +91,11 @@ func (emv *EMVCo) Parse(str string) error {
 	}
 
 	err = emv.parseAdditionalDataFieldTemplate(objectsMap)
+	if err != nil {
+		return err
+	}
+
+	err = emv.parseMerchantAlternateLanguage(objectsMap)
 	if err != nil {
 		return err
 	}
@@ -151,3 +159,5 @@ func (emv *EMVCo) validateEMVCoID(ID string) (int, error) {
 	}
 	return qrisID, nil
 }
+
+// TODO: in order to get which information, please create a public function here

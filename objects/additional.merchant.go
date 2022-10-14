@@ -29,4 +29,26 @@ type MerchantPostalCode struct {
 // Merchant Name and potentially other merchant related information in an alternate language, typically the local language.
 type MerchantAlternateLanguage struct {
 	DataObject
+	LanguagePreference *MerchantLanguagePreference
+	MerchantName       *MerchantNameAlternateLanguage
+	MerchantCity       *MerchantCityAlternateLanguage
+	RFUs               []MerchantRFUAlternateLanguage
+}
+
+// Data Objects for Merchant Information—Language Template (ID "64")
+type MerchantLanguagePreference struct {
+	DataObject
+}
+
+type MerchantNameAlternateLanguage struct {
+	DataObject
+}
+
+type MerchantCityAlternateLanguage struct {
+	DataObject
+}
+
+// Data objects reserved for EMVCo
+type MerchantRFUAlternateLanguage struct {
+	DataObject
 }

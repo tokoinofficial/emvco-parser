@@ -21,14 +21,17 @@ const (
 	Merchant_Channel                 = "11"
 )
 
+// The Additional Data Field Template includes information that may be provided by the Merchant or may be populated by the mobile application to enable or facilitate certain use cases.
+// For the list of data objects that can be included in this template, please refer to Table 3.7.
 func (emv *EMVCo) parseAdditionalDataFieldTemplate(objectsMap map[string]*objects.DataObject) error {
-	emv.dataFieldTemplate = &objects.AdditionalDataFieldTemplate{}
 
 	if objectsMap[Additional_Data_Field_Template] != nil {
+
 		if objectsMap[Additional_Data_Field_Template].Length > 99 {
 			return errors.New("invalid length of Additional Data Field Template")
 		}
 
+		emv.dataFieldTemplate = &objects.AdditionalDataFieldTemplate{}
 		dataObjects, err := emv.parseDataObjects(objectsMap[Additional_Data_Field_Template].Value.(string), false)
 		if err != nil {
 			return err
