@@ -3,7 +3,6 @@ package emvco
 import (
 	"emvco-parser/m/v2/objects"
 	"errors"
-	"strconv"
 )
 
 const (
@@ -163,11 +162,6 @@ func (emv *EMVCo) parseMerchantAlternateLanguage(objectsMap map[string]*objects.
 			return err
 		}
 
-		err = emv.parseRFUAlternateLanguage(dataObjects)
-		if err != nil {
-			return err
-		}
-
 		emv.mAlternateLanguage.TemplateMap = dataObjects
 
 	}
@@ -233,32 +227,5 @@ func (emv *EMVCo) parseMerchantCityAlternateLanguage(objectsMap map[string]*obje
 		}
 	}
 
-	return nil
-}
-
-func (emv *EMVCo) parseRFUAlternateLanguage(objectsMap map[string]*objects.DataObject) error {
-	// Merchant City Alternate Language is optional
-	rfus := make([]objects.MerchantRFUAlternateLanguage, 0)
-	for i := 3; i <= 99; i++ {
-		if objectsMap[strconv.Itoa(i)] != nil {
-			dataObjects, err := emv.parseDataObjects(objectsMap[strconv.Itoa(i)].Value.(string), false)
-			if err != nil {
-				return err
-			}
-
-			rfus = append(rfus, objects.MerchantRFUAlternateLanguage{
-				DataObject: objects.DataObject{
-					ID:          strconv.Itoa(i),
-					Length:      objectsMap[strconv.Itoa(i)].Length,
-					Value:       objectsMap[strconv.Itoa(i)].Value,
-					TemplateMap: dataObjects,
-				},
-			})
-
-		}
-
-	}
-
-	emv.mAlternateLanguage.RFUs = rfus
 	return nil
 }

@@ -23,6 +23,7 @@ type EMVCo struct {
 	tnxValueOfConvenienceFeeFixed      *objects.TransactionValueOfConvenienceFeeFixed
 	tnxValueOfConvenienceFeePercentage *objects.TransactionValueOfConvenienceFeePercentage
 	dataFieldTemplate                  *objects.AdditionalDataFieldTemplate
+	CRC                                *objects.CRC
 }
 
 func NewEMVCo() *EMVCo {
@@ -45,6 +46,7 @@ func (emv *EMVCo) ToString() string {
 		TransactionValueOfConvenienceFeeFixed: %v
 		TransactionValueOfConvenienceFeePercentage: %v
 		AdditionalDataFieldTemplate: %v
+		CRC: %v
 	`,
 		emv.pfi, emv.poim,
 		emv.mAccounts,
@@ -60,6 +62,7 @@ func (emv *EMVCo) ToString() string {
 		emv.tnxValueOfConvenienceFeeFixed,
 		emv.tnxValueOfConvenienceFeePercentage,
 		emv.dataFieldTemplate,
+		emv.CRC,
 	)
 }
 

@@ -99,11 +99,6 @@ func (emv *EMVCo) parseAdditionalDataFieldTemplate(objectsMap map[string]*object
 			return err
 		}
 
-		err = emv.parseRFU(dataObjects)
-		if err != nil {
-			return err
-		}
-
 		err = emv.parsePaymentSystemSpecificTemplates(dataObjects)
 		if err != nil {
 			return err
@@ -319,34 +314,6 @@ func (emv *EMVCo) parseMerchantChannel(objectsMap map[string]*objects.DataObject
 		}
 	}
 
-	return nil
-}
-
-func (emv *EMVCo) parseRFU(objectsMap map[string]*objects.DataObject) error {
-
-	rfus := make([]*objects.AdditionalObjectRFU, 0)
-	for i := 12; i <= 49; i++ {
-		if objectsMap[strconv.Itoa(i)] != nil {
-
-			dataObjects, err := emv.parseDataObjects(objectsMap[strconv.Itoa(i)].Value.(string), false)
-			if err != nil {
-				return err
-			}
-
-			rfus = append(rfus, &objects.AdditionalObjectRFU{
-				DataObject: objects.DataObject{
-					ID:          strconv.Itoa(i),
-					Length:      objectsMap[strconv.Itoa(i)].Length,
-					Value:       objectsMap[strconv.Itoa(i)].Value,
-					TemplateMap: dataObjects,
-				},
-			})
-
-		}
-
-	}
-
-	emv.dataFieldTemplate.RFU = rfus
 	return nil
 }
 

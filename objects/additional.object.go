@@ -75,11 +75,6 @@ type AdditionalObjectMerchantChannel struct {
 	DataObject
 }
 
-// RFU for EMVCo
-type AdditionalObjectRFU struct {
-	DataObject
-}
-
 type AdditionalObjectPaymentSystemSpecificTemplate struct {
 	DataObject
 }

@@ -15,6 +15,5 @@ type AdditionalDataFieldTemplate struct {
 	AdditionalConsumerDataRequest  *AdditionalObjectConsumerDataRequest
 	MerchantTaxID                  *AdditionalObjectMerchantTaxID
 	MerchantChannel                *AdditionalObjectMerchantChannel
-	RFU                            []*AdditionalObjectRFU
 	PaymentSystemSpecificTemplates []*AdditionalObjectPaymentSystemSpecificTemplate
 }

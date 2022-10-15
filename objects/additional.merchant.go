@@ -32,7 +32,6 @@ type MerchantAlternateLanguage struct {
 	LanguagePreference *MerchantLanguagePreference
 	MerchantName       *MerchantNameAlternateLanguage
 	MerchantCity       *MerchantCityAlternateLanguage
-	RFUs               []MerchantRFUAlternateLanguage
 }
 
 // Data Objects for Merchant Information—Language Template (ID "64")
@@ -45,10 +44,5 @@ type MerchantNameAlternateLanguage struct {
 }
 
 type MerchantCityAlternateLanguage struct {
-	DataObject
-}
-
-// Data objects reserved for EMVCo
-type MerchantRFUAlternateLanguage struct {
 	DataObject
 }
